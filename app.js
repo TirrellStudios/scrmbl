@@ -23,14 +23,15 @@ const game = (() => {
   }
 
   const submitAnswer = () => {
-    if (answer !== word) return
-    alert('You won!')
+    if (answer.length !== word.length) return
+    if (answer !== word) alert('Incorrect guess')
+    else alert('You won!')
     resetGame()
   }
 
   const resetGame = () => {
     answer = ''
-    render.renderAll()
+    render.renderGame()
   }
 
   const render = (() => {
@@ -80,7 +81,6 @@ const game = (() => {
           key.classList.add('key')
           key.classList.add(keyboard[i][j].toLowerCase())
           key.innerText = keyboard[i][j]
-
           keyboardRow.appendChild(key)
         }
         DOM.keyboardContainer.appendChild(keyboardRow)
@@ -91,6 +91,11 @@ const game = (() => {
       while (container.firstChild) container.removeChild(container.firstChild)
     }
 
+    const renderGame = () => {
+      scrmblTiles()
+      inputTiles()
+    }
+
     const renderAll = () => {
       scrmblTiles()
       inputTiles()
@@ -98,7 +103,7 @@ const game = (() => {
     }
     renderAll()
 
-    return { renderAll, inputTiles }
+    return { renderAll, inputTiles, renderGame }
   })()
 
   const events = (() => {
