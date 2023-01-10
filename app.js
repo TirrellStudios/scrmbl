@@ -5,7 +5,7 @@ const game = (() => {
   const scrmbl = (word) => {
     const letters = word.split('')
     letters.sort((a, b) => {
-      return 0.5 - Math.random();
+      return 0.5 - Math.random()
     })
     return letters.join('')
   }
