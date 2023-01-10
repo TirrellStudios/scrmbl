@@ -24,14 +24,16 @@ const game = (() => {
 
   const submitAnswer = () => {
     if (answer.length !== word.length) return
-    if (answer !== word) alert('Incorrect guess')
-    else alert('You won!')
-    resetGame()
-  }
-
-  const resetGame = () => {
-    answer = ''
-    render.renderGame()
+    if (answer !== word)  {
+      alert('Incorrect guess')
+      answer = ''
+      render.inputTiles()
+    }
+    else {
+      alert('You won!')
+      answer = ''
+      render.renderGame()
+    }
   }
 
   const render = (() => {
@@ -96,14 +98,13 @@ const game = (() => {
       inputTiles()
     }
 
-    const renderAll = () => {
+    const renderAll = (() => {
       scrmblTiles()
       inputTiles()
       keyboard()
-    }
-    renderAll()
+    })()
 
-    return { renderAll, inputTiles, renderGame }
+    return { inputTiles, renderGame }
   })()
 
   const events = (() => {
