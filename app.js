@@ -11,16 +11,27 @@ const game = (() => {
   }
 
   const addLetter = (letter) => {
-    letter = letter.toUpperCase()
-    for (let i = 0; i < render.DOM.inputLetters.length; i++) {
-      if (render.DOM.inputLetters[i].innerText == '') {
-        render.DOM.inputLetters[i].innerText = letter
-        answer += letter
-        break
-      }
-    }
+    if (answer.length >= word.length) return
+    answer += letter.toUpperCase()
+    render.inputTiles()
+  }
 
-  } 
+  const removeLetter = () => {
+    if (answer.length === 0) return
+    answer = answer.slice(0, -1)
+    render.inputTiles()
+  }
+
+  const submitAnswer = () => {
+    if (answer !== word) return
+    alert('You won!')
+    resetGame()
+  }
+
+  const resetGame = () => {
+    answer = ''
+    render.renderAll()
+  }
 
   const render = (() => {
     const DOM = (() => {
@@ -33,7 +44,8 @@ const game = (() => {
       return { wordContainer, wordLetters, inputContainer, inputLetters, keyboardContainer}
     })()
   
-    const renderScrmblTiles = () => {
+    const scrmblTiles = () => {
+      clearContainer(DOM.wordContainer)
       let scrmbledWord = scrmbl(word)
       while (scrmbledWord[0] === word[0] || scrmbledWord[-1] !== word[-1]) scrmbledWord = scrmbl(word)
       for (let i = 0; i < word.length; i++) {
@@ -44,14 +56,17 @@ const game = (() => {
       }
     }
   
-    const renderInputTiles = () => {
+    const inputTiles = () => {
+      clearContainer(DOM.inputContainer)
       for (let i = 0; i < word.length; i++) {
         const inputLetter = document.createElement('div')
+        if (answer[i]) inputLetter.innerText = answer[i]
         DOM.inputContainer.appendChild(inputLetter)
       }
     }
   
-    const renderKeyboard = () => {
+    const keyboard = () => {
+      clearContainer(DOM.keyboardContainer)
       const keyboard = [
         ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
         ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
@@ -72,22 +87,26 @@ const game = (() => {
       }
     }
 
+    const clearContainer = (container) => {
+      while (container.firstChild) container.removeChild(container.firstChild)
+    }
+
     const renderAll = () => {
-      renderScrmblTiles()
-      renderInputTiles()
-      renderKeyboard()
+      scrmblTiles()
+      inputTiles()
+      keyboard()
     }
     renderAll()
 
-    return { DOM }
+    return { renderAll, inputTiles }
   })()
 
   const events = (() => {
     const handleKeyPress = (e) => {
-      e.key = e.key.toLowerCase()
-      if (e.key === "enter") submitAnswer()
-      else if (e.key === "backspace" || e.key === "delete") removeLetter()
-      else if (e.key.match(/^[a-z]$/)) addLetter(e.key)
+      const lowerCase = e.key.toLowerCase()
+      if (lowerCase === "enter") submitAnswer()
+      else if (lowerCase === "backspace" || lowerCase === "delete") removeLetter()
+      else if (lowerCase.match(/^[a-z]$/)) addLetter(e.key)
     }
     document.onkeydown = (e) => handleKeyPress(e)
     const keys = document.getElementsByClassName('key')
@@ -97,6 +116,4 @@ const game = (() => {
       }
     }
   })()
-
-  return { word, answer }
 })()
