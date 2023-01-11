@@ -7,6 +7,7 @@
   color: #FFFFFF;
   border: none;
   font-weight: 700;
+  user-select: none;
 }
 
 html,
@@ -25,6 +26,9 @@ body {
   display: flex;
   flex-direction: column;
   background: #222222;
+  border-left: 5px solid #171717;
+  border-right: 5px solid #171717;
+  outline: 5px solid #333333;
 }
 
 h1 {
@@ -34,10 +38,23 @@ h1 {
 
 .game-container {
   height: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#score-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 10rem;
+}
+
+#score-container p {
+  font-size: 1.5rem;
 }
 
 .display-container {
@@ -61,6 +78,11 @@ h1 {
   padding: .25rem;
 }
 
+#input-container.shake {
+  animation: shake 500ms;
+  animation-iteration-count: 1;
+}
+
 #word-container div,
 #input-container div {
   display: flex;
@@ -72,13 +94,38 @@ h1 {
   border: 2px solid #333333;
 }
 
+#scrmbl-button {
+  display: flex;
+  position: absolute;
+  top: 16.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  background: #444444;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 150ms;
+}
+
+#scrmbl-button:active {
+  background: #333333;
+}
+
+#scrmbl-button i {
+  font-size: 2rem;
+}
+
 #keyboard-container {
+  max-width: 31rem;
+  width: 100%;
+  background: #171717;
   bottom: 0;
   position: fixed;
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 1rem 0;
+  padding: 1rem 0;
 }
 
 .keyboard-row {
@@ -104,4 +151,18 @@ h1 {
 .keyboard-row .delete {
   font-size: .75rem;
   width: 4rem;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
