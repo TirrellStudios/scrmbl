@@ -76,8 +76,8 @@ const game = (() => {
     
     const scores = () => {
       clearContainer(scoreContainer)
-      createElement('p', 'scrmbl-count', 'Scrmbl Count: ' + scrmblCount, scoreContainer)
-      createElement('p', 'guess-count', 'Guess Count: ' + guessCount, scoreContainer)
+      createElement('p', 'scrmbl-count', 'Scrmbls: ' + scrmblCount, scoreContainer)
+      createElement('p', 'guess-count', 'Guesses: ' + guessCount, scoreContainer)
     }
 
     const scrmblTiles = () => {
