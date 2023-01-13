@@ -2,6 +2,7 @@ let dailyWord = ''
 let answer = ''
 let guessCount = 0
 let scrmblCount = 0
+let gameover = false
 
 function getDailyScrmbl(callback) {
   fetch('https://3ldjrbuk0b.execute-api.us-east-1.amazonaws.com/default/getScrmblWord')
@@ -29,18 +30,21 @@ function scrmbl() {
 }
 
 function addLetter(letter) {
+  if (gameover) return
   if (answer.length >= dailyWord.length) return
   answer += letter.toUpperCase()
   renderInputTiles()
 }
 
 function removeLetter() {
+  if (gameover) return
   if (answer.length === 0) return
   answer = answer.slice(0, -1)
   renderInputTiles()
 }
 
 function submitAnswer() {
+  if (gameover) return
   if (answer.length !== dailyWord.length) {
     shakeInputTiles()
     return
@@ -53,6 +57,7 @@ function submitAnswer() {
     renderScores()
   }
   else {
+    gameover = true
     renderGameOver()
   }
 }
