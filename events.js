@@ -19,7 +19,7 @@ function listen() {
 }
 
 window.onload = () => {
-  showInfoContainer()
+  showStartView()
   getDailyScrmbl(() => {
     renderScores()
     renderScrmblTiles()

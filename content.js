@@ -6,7 +6,11 @@ const keyboardContainer = document.getElementById('keyboard-container')
 const scrmblButton = document.getElementById('scrmbl-button')
 const scoreContainer = document.getElementById('score-container')
 const infoContainer = document.getElementById('info-container')
+const startView = document.getElementById('start-view')
 const startButton = document.getElementById('start-button')
+const gameoverView = document.getElementById('gameover-view')
+const finalScrmblDisplay = document.getElementById('scrmbl-display')
+const finalGuessDisplay = document.getElementById('guess-display')
 
 function createElement(type, classNames, text, parent) {
   const element = document.createElement(type)
@@ -71,12 +75,28 @@ function renderKeyboard() {
 
 function hideInfoContainer() {
   infoContainer.classList.remove('active')
-  infoContainer.classList.add('inactive')
 }
 
 function showInfoContainer() {
-  infoContainer.classList.remove('inactive')
   infoContainer.classList.add('active')
+}
+
+function showStartView() {
+  gameoverView.classList.remove('active')
+  startView.classList.add('active')
+  showInfoContainer()
+}
+
+function showGameoverView() {
+  gameoverView.classList.add('active')
+  startView.classList.remove('active')
+  showInfoContainer()
+}
+
+function renderGameOver() {
+  finalScrmblDisplay.innerText = `You used ${scrmblCount} Scrmbls,`
+  finalGuessDisplay.innerText = `${guessCount} guesses,`
+  showGameoverView()
 }
 
 function renderGame() {

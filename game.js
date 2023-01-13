@@ -53,7 +53,6 @@ function submitAnswer() {
     renderScores()
   }
   else {
-    showInfoContainer()
     renderGameOver()
   }
 }
