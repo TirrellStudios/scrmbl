@@ -2,6 +2,7 @@ let dailyWord = ''
 let answer = ''
 let guessCount = 0
 let scrmblCount = 0
+let timer = 0
 let gameover = false
 
 function getDailyScrmbl(callback) {
@@ -58,13 +59,18 @@ function submitAnswer() {
   }
   else {
     gameover = true
+    stopTimer()
     renderGameOver()
   }
 }
 
-function resetGame() {
-  guessCount = 0
-  scrmblCount = 0
-  answer = ''
-  renderGame()
+let startTime
+function startTimer() {
+  startTime = new Date();
+}
+
+let endTime
+function stopTimer() {
+  endTime = new Date();
+  timer = (endTime - startTime) / 1000
 }

@@ -11,6 +11,7 @@ const startButton = document.getElementById('start-button')
 const gameoverView = document.getElementById('gameover-view')
 const finalScrmblDisplay = document.getElementById('scrmbl-display')
 const finalGuessDisplay = document.getElementById('guess-display')
+const finalTimeDisplay = document.getElementById('second-display')
 
 function createElement(type, classNames, text, parent) {
   const element = document.createElement(type)
@@ -96,6 +97,7 @@ function showGameoverView() {
 function renderGameOver() {
   finalScrmblDisplay.innerText = `You used ${scrmblCount} Scrmbls,`
   finalGuessDisplay.innerText = `${guessCount} guesses,`
+  finalTimeDisplay.innerText = `and took you ${Math.floor(timer)} seconds`
   showGameoverView()
 }
 

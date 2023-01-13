@@ -13,7 +13,10 @@ function listen() {
       handleKeyPress({ key: keys[i].innerText })
     }
   }
-  startButton.onclick = () => hideInfoContainer()
+  startButton.onclick = () => {
+    startTimer()
+    hideInfoContainer()
+  }
 }
 
 window.onload = () => {
