@@ -9,13 +9,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <script src="https://kit.fontawesome.com/1cbe88ec8f.js" crossorigin="anonymous"></script>
-  <script src="app.js" async defer></script>
+  <script src="game.js" async defer></script>
+  <script src="content.js" async defer></script>
+  <script src="events.js" async defer></script>
 </head>
 
 <body>
-  <div id="info-container"></div>
   <div class="content-container">
     <h1>Scrmbl</h1>
+    <hr>
+    <hr>
     <div class="game-container">
       <div id="score-container"></div>
       <div id="word-container"></div>
@@ -24,6 +27,25 @@
         <i class="fa-solid fa-arrows-rotate"></i>
       </div>
       <div id="keyboard-container"></div>
+    </div>
+  </div>
+  <div id="info-container" class="content-container">
+    <div id="start-view" class="info-view">
+      <h2>Welcome to Scrambl... your new daily word game.</h2>
+      <h3>Before you click start, here's how you play:</h3>
+      <ul>
+        <li>The goal is to un-Scrmbl the word as fast as you can.</li>
+        <li>When you press start, a timer starts counting.</li>
+        <li>There's a Scrmbl button that will mix up the word again if you are lost</li>
+        <li>But be careful. Each time you click the Scrmbl button, or submit an answer, these will go in your results
+          along with the time that it took you to complete it.</li>
+        <li>Thanks for playing.</li>
+      </ul>
+      <button id="start-button">Start!</button>
+    </div>
+
+    <div id="gameover-view" class="info-view">
+      <h2>You got it!</h2>
     </div>
   </div>
 </body>
