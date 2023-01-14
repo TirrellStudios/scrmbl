@@ -1,0 +1,9 @@
+{
+  "name": "Scrmbl",
+  "share_target": {
+    "params": {
+      "title": "Results",
+      "text": "text"
+    }
+  }
+}
