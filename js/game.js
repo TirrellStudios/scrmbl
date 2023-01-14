@@ -6,7 +6,7 @@ let timer = 0
 let gameover = false
 
 function getDailyScrmbl(callback) {
-  fetch('https://3ldjrbuk0b.execute-api.us-east-1.amazonaws.com/default/getScrmblWord')
+  fetch('https://xj8a0b5rzj.execute-api.us-east-1.amazonaws.com/default/getScrmblWord')
     .then(response => {
       return response.json()
     })
