@@ -19,7 +19,7 @@ function listen() {
   }
   shareButton.onclick = () => {
     if (navigator.share) {
-      let message = `Here's how my Scrmbl went for ${new Date().toLocaleDateString('en-US')}:\n`
+      let message = `Here's how my Scrmbl went for ${date}:\n`
       message += `It took me ${Math.floor(timer)} seconds to guess the word,\n`
       message += `And I used the Scrmbl button ${scrmblCount} times.\n\n`
       message += `Can you do better?`
