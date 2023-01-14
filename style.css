@@ -223,7 +223,8 @@ button {
 
 #info-container h2,
 #info-container h3,
-#info-container li {
+#info-container li,
+#info-container p {
   margin: 1rem;
   list-style: none;
 }
@@ -271,6 +272,26 @@ button {
 
 #gameover-view.active {
   display: flex;
+}
+
+#share-button {
+  background: #FFFFFF;
+  font-size: 1rem;
+  color: #222222;
+  width: 6rem;
+  height: 3rem;
+  border-radius: 25px;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 2rem;
+}
+
+#share-button:hover {
+  background: #DDDDDD;
+}
+
+#share-button:active {
+  background: #BBBBBB;
 }
 
 @keyframes shake {

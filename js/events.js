@@ -17,6 +17,17 @@ function listen() {
     startTimer()
     hideInfoContainer()
   }
+  shareButton.onclick = () => {
+    let message = `Here's how my Scrmbl went for ${new Date().toLocaleDateString('en-US')}:\n`
+    message += `It took me ${timer} seconds to guess the word,\n`
+    message += `And I used the Scrmbl button ${scrmblCount} times.\n\n`
+    message += `Can you do better? https://scrmbl.net`
+    navigator.share({
+      title: 'Scrmbl',
+      text: message,
+      url: 'https://scrmbl.net'
+    })
+  }
 }
 
 window.onload = () => {
