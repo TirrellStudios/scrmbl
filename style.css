@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+/* 
+background: #171816
+foreground: #544722
+color: #E3B825
+*/
+
 * {
   padding: 0;
   margin: 0;
   font-family: 'Quicksand', sans-serif;
-  color: #FFFFFF;
+  color: #EEEEEE;
   border: none;
   font-weight: 700;
   user-select: none;
@@ -16,40 +22,66 @@ body {
   overflow: hidden;
 }
 
-html {
-  height: 100%;
-}
-
 body {
   display: flex;
   justify-content: center;
-  background: #171717;
-}
-
-button {
-  transition: background 150ms;
+  background: #171816;
 }
 
 .content-container {
-  max-width: 30rem;
   display: flex;
-  width: 100%;
   flex-direction: column;
-  background: #222222;
-  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 32.5rem;
+  width: 100%;
+  background: #544722;
+  outline: 3px solid #544722;
+  border-left: 5px solid #171816;
+  border-right: 5px solid #171816;
+}
+
+/* ---- HEADER ----- */
+header {
+  background: #171816;
+  width: 100%;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-left: .5rem;
+}
+
+img {
+  width: 2rem;
+  height: 2rem;
+  background-size: 100%;
+  background: #544722;
+  border-radius: 50px;
+  padding: .5rem;
+  margin: .5rem 0;
 }
 
 h1 {
   padding: .5rem;
 }
 
-hr {
-  background: #171717;
-  margin: .25rem 0;
-  height: .25rem;
+/* ---- DISPLAY ---- */
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+button {
+  transition: background 150ms;
 }
 
 .game-container {
+  max-width: 35rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -66,15 +98,15 @@ hr {
 }
 
 #score-container p {
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 1.25rem;
 }
 
 #word-container,
 #input-container {
   display: flex;
   font-size: 2rem;
-  background: #171717;
-  padding: .25rem;
+  background: #171816;
   width: 100%;
 }
 
@@ -85,11 +117,13 @@ hr {
 
 #word-container div,
 #input-container div {
-  height: 4rem;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 3.5rem;
+  width: 2.5rem;
+  margin: 1px;
+  outline: 2px solid #171816;
   border: 2px solid #333333;
 }
 
@@ -97,11 +131,13 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
-  height: 4rem;
-  background: #444444;
+  width: 3rem;
+  height: 3rem;
+  background: #171816;
   border-radius: 50px;
   cursor: pointer;
+  outline: 2px solid #E3B825;
+  border: 5px solid #544722;
 }
 
 #scrmbl-button:active {
@@ -110,6 +146,11 @@ hr {
 
 #scrmbl-button i {
   font-size: 2rem;
+  color: #E3B825;
+}
+
+#scrmbl-button.active {
+  animation: spin ;
 }
 
 #keyboard-container {
@@ -118,7 +159,7 @@ hr {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: .5rem .5rem;
+  padding: .5rem 0;
 }
 
 .keyboard-row {
@@ -167,11 +208,12 @@ hr {
   display: none;
   flex-direction: column;
   align-items: center;
-  background: #222222;
-  top: 5rem;
-  bottom: 14rem;
+  background: #171816;
+  top: 4.25rem;
+  bottom: 0;
   z-index: 1;
   width: 100%;
+  max-width: 32.5rem;
 }
 
 #info-container.active {
@@ -187,7 +229,6 @@ hr {
 
 #info-container h3 {
   text-decoration: underline;
-  margin-bottom: 2rem;
 }
 
 #info-container li {
@@ -212,6 +253,7 @@ hr {
   height: 3rem;
   border-radius: 25px;
   cursor: pointer;
+  align-self: center;
 }
 
 #start-button:hover {
@@ -242,4 +284,9 @@ hr {
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
