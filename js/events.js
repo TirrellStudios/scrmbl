@@ -18,17 +18,23 @@ function listen() {
     hideInfoContainer()
   }
   shareButton.onclick = () => {
-    if (navigator.share) {
-      let message = `Here's how my Scrmbl went for ${date}:\n`
-      message += `It took me ${Math.floor(timer)} seconds to guess the word,\n`
-      message += `And I used the Scrmbl button ${scrmblCount} times.\n\n`
-      message += `Can you do better?`
-      navigator.share({
-        title: 'Scrmbl',
-        text: message,
-        url: 'https://scrmbl.net'
-      })
+    let message = `Here's how my Scrmbl went for ${date}:\n`
+    message += `It took me ${Math.floor(timer)} seconds to guess the word,\n`
+    message += `And I used the Scrmbl button ${scrmblCount} times.\n\n`
+    message += `Can you do better?\n`
+    message += `https://scrmbl.net`
+    if (!navigator.share) {
+      navigator.clipboard.writeText(message)
+      shareButton.innerText = 'Copied!'
+      setTimeout(() => {
+        shareButton.innerText = 'Share'
+      }, 2000)
+      return
     }
+    navigator.share({
+      title: 'Scrmbl',
+      text: message
+    })
   }
 }
 
