@@ -117,8 +117,8 @@ button {
   animation-iteration-count: 1;
 }
 
-#word-container div,
-#input-container div {
+.word-tile,
+.input-tile {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,6 +127,10 @@ button {
   margin: 1px;
   outline: 2px solid #171816;
   border: 2px solid #333333;
+}
+
+.word-tile.fade {
+  color: #2c2e2a;
 }
 
 #scrmbl-button {

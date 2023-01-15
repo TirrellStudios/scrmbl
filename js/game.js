@@ -1,5 +1,6 @@
 let dailyWord = ''
 let answer = ''
+let date = ''
 let guessCount = 0
 let scrmblCount = 0
 let timer = 0
@@ -11,7 +12,8 @@ function getDailyScrmbl(callback) {
       return response.json()
     })
     .then(data => {
-      dailyWord = data.message.toUpperCase()
+      dailyWord = data.message.word.toUpperCase()
+      date = data.message.date
       callback()
     })
 }

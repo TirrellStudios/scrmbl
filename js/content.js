@@ -40,15 +40,31 @@ function renderScrmblTiles() {
   let scrmbledWord = scrmblWord()
   while (scrmbledWord[0] === dailyWord[0] || scrmbledWord[-1] !== dailyWord[-1]) scrmbledWord = scrmblWord()
   for (let i = 0; i < dailyWord.length; i++) {
-    createElement('div', null, scrmbledWord[i], wordContainer)
+    createElement('div', ['word-tile'], scrmbledWord[i], wordContainer)
+  }
+}
+
+function fadeLettersUsed() {
+  let wordTiles = document.getElementsByClassName('word-tile')
+  for (let i = 0; i < wordTiles.length; i++) {
+    wordTiles[i].classList.remove('fade')
+  }
+  for (let i = 0; i < answer.length; i++) {
+    for (let j = 0; j < wordTiles.length; j++) {
+      if (answer[i] === wordTiles[j].innerText && !wordTiles[j].classList.contains('fade')) {
+        wordTiles[j].classList.add('fade')
+        break
+      }
+    }
   }
 }
 
 function renderInputTiles() {
   clearContainer(inputContainer)
   for (let i = 0; i < dailyWord.length; i++) {
-    createElement('div', null, answer[i], inputContainer)
+    createElement('div', ['input-tile'], answer[i], inputContainer)
   }
+  fadeLettersUsed()
 }
 
 function shakeInputTiles() {
