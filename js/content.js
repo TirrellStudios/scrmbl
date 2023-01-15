@@ -42,6 +42,7 @@ function renderScrmblTiles() {
   for (let i = 0; i < dailyWord.length; i++) {
     createElement('div', ['word-tile'], scrmbledWord[i], wordContainer)
   }
+  fadeLettersUsed()
 }
 
 function fadeLettersUsed() {
