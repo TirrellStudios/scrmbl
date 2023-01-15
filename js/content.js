@@ -83,7 +83,13 @@ function renderKeyboard() {
   for (let i = 0; i < keyboard.length; i++) {
     const keyboardRow = createElement('div', ['keyboard-row'], null, keyboardContainer)
     for (let j = 0; j < keyboard[i].length; j++) {
-      createElement('button', ['key', keyboard[i][j].toLowerCase()], keyboard[i][j], keyboardRow)
+      const classList = ['key', keyboard[i][j]]
+      if (dailyWord.indexOf(keyboard[i][j]) === -1) {
+        if (keyboard[i][j] !== 'ENTER' && keyboard[i][j] !== 'DELETE') {
+          classList.push('fade')
+        }
+      }
+      createElement('button', classList, keyboard[i][j], keyboardRow)
     }
   }
 }

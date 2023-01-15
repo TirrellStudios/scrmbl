@@ -3,7 +3,13 @@ function listen() {
     const key = e.key.toLowerCase()
     if (key === 'enter') submitAnswer()
     else if (key === 'backspace' || key === 'delete') removeLetter()
-    else if (key.match(/^[a-z]$/)) addLetter(e.key)
+    else if (key.match(/^[a-z]$/)) {
+      console.log('in else if')
+      if (dailyWord.indexOf(key.toUpperCase()) !== -1) {
+        console.log('in inner if')
+        addLetter(key)
+      }
+    }
   }
   document.onkeydown = (e) => handleKeyPress(e)
   scrmblButton.onclick = () => scrmbl()
