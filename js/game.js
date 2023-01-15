@@ -1,7 +1,6 @@
 let dailyWord = ''
 let answer = ''
 let date = ''
-let guessCount = 0
 let scrmblCount = 0
 let timer = 0
 let gameover = false
@@ -52,7 +51,6 @@ function submitAnswer() {
     shakeInputTiles()
     return
   }
-  guessCount++
   if (answer.toLowerCase() !== dailyWord.toLowerCase()) {
     answer = ''
     renderInputTiles()

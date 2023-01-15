@@ -9,9 +9,8 @@ const infoContainer = document.getElementById('info-container')
 const startView = document.getElementById('start-view')
 const startButton = document.getElementById('start-button')
 const gameoverView = document.getElementById('gameover-view')
-const finalScrmblDisplay = document.getElementById('scrmbl-display')
-const finalGuessDisplay = document.getElementById('guess-display')
-const finalTimeDisplay = document.getElementById('second-display')
+const shareButton = document.getElementById('share-button')
+const finalResultsDisplay = document.getElementById('final-results-display')
 
 function createElement(type, classNames, text, parent) {
   const element = document.createElement(type)
@@ -32,7 +31,6 @@ function clearContainer(container) {
 function renderScores() {
   clearContainer(scoreContainer)
   createElement('p', ['scrmbl-count'], `Scrmbls: ${scrmblCount}`, scoreContainer)
-  createElement('p', ['guess-count'], `Guesses: ${guessCount}`, scoreContainer)
 }
 
 function renderScrmblTiles() {
@@ -111,9 +109,10 @@ function showGameoverView() {
 }
 
 function renderGameOver() {
-  finalScrmblDisplay.innerText = `You used ${scrmblCount} Scrmbls,`
-  finalGuessDisplay.innerText = `${guessCount} guesses,`
-  finalTimeDisplay.innerText = `and took you ${Math.floor(timer)} seconds`
+  let message = `It took you ${Math.floor(timer)} seconds to guess the word,\n`
+  message += `And you used the Scrmbl button ${scrmblCount} times.\n\n`
+  message += `Can your friends do better?`
+  finalResultsDisplay.innerText = message
   showGameoverView()
 }
 
