@@ -41,9 +41,9 @@ function listen() {
 }
 
 window.onload = () => {
-  showStartView()
   getDailyScrmbl(() => {
     if (checkForSave()) return
+    showStartView()
     renderScores()
     renderScrmblTiles()
     renderInputTiles()
