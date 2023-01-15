@@ -7,13 +7,12 @@ function saveLocal() {
 }
 
 function checkForSave() {
-  if (localStorage.getItem(date)) {
-    let game = JSON.parse(localStorage.getItem(date))
-    scrmblCount = game.scrmbls
-    timer = game.time
-    gameover = true
-    renderGameOver()
-    listen()
-    return true
-  }
+  if (!localStorage.getItem(date)) return
+  let game = JSON.parse(localStorage.getItem(date))
+  scrmblCount = game.scrmbls
+  timer = game.time
+  gameover = true
+  renderGameOver()
+  listen()
+  return true
 }
