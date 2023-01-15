@@ -4,11 +4,7 @@ function listen() {
     if (key === 'enter') submitAnswer()
     else if (key === 'backspace' || key === 'delete') removeLetter()
     else if (key.match(/^[a-z]$/)) {
-      console.log('in else if')
-      if (dailyWord.indexOf(key.toUpperCase()) !== -1) {
-        console.log('in inner if')
-        addLetter(key)
-      }
+      if (dailyWord.indexOf(key.toUpperCase()) !== -1) addLetter(key)
     }
   }
   document.onkeydown = (e) => handleKeyPress(e)
@@ -47,6 +43,7 @@ function listen() {
 window.onload = () => {
   showStartView()
   getDailyScrmbl(() => {
+    if (checkForSave()) return
     renderScores()
     renderScrmblTiles()
     renderInputTiles()

@@ -61,6 +61,7 @@ function submitAnswer() {
     gameover = true
     stopTimer()
     renderGameOver()
+    saveLocal()
   }
 }
 
