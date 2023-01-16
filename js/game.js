@@ -60,6 +60,7 @@ function submitAnswer() {
     shakeInputTiles()
     renderScores()
     renderKeyboard()
+    listen()
   }
   else {
     gameover = true
