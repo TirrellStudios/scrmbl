@@ -36,6 +36,7 @@ function renderScores() {
 function renderScrmblTiles() {
   clearContainer(wordContainer)
   let scrmbledWord = scrmblWord()
+  while (scrmbledWord[0] !== dailyWord[0] && scrmbledWord[-1] !== dailyWord[-1]) scrmbldWord = scrmbledWord()
   for (let i = 0; i < dailyWord.length; i++) {
     createElement('div', ['word-tile'], scrmbledWord[i], wordContainer)
   }
@@ -83,13 +84,31 @@ function renderKeyboard() {
   for (let i = 0; i < keyboard.length; i++) {
     const keyboardRow = createElement('div', ['keyboard-row'], null, keyboardContainer)
     for (let j = 0; j < keyboard[i].length; j++) {
-      const classList = ['key', keyboard[i][j]]
-      if (dailyWord.indexOf(keyboard[i][j]) === -1) {
-        if (keyboard[i][j] !== 'ENTER' && keyboard[i][j] !== 'DELETE') {
-          classList.push('fade')
+      createElement('button', ['key', keyboard[i][j].toLowerCase(), 'fade'], keyboard[i][j], keyboardRow)
+    }
+  }
+  unfadeKeys()
+}
+
+function unfadeKeys() {
+  const keys = document.getElementsByClassName('key')
+  for (let i = 0; i < keys.length; i++) {
+    keys[i].classList.add('fade')
+  }
+  for (let i = 0; i < keys.length; i++) {
+    keys[i].classList.add('fade')
+    if (keys[i].innerText === 'ENTER' || keys[i].innerText === 'DELETE') {
+      keys[i].classList.remove('fade')
+    }
+  }
+  const wordTiles = document.getElementsByClassName('word-tile')
+  for (let i = 0; i < wordTiles.length; i++) {
+    if (!wordTiles[i].classList.contains('fade')) {
+      for (let j = 0; j < keys.length; j++) {
+        if (keys[j].innerText === wordTiles[i].innerText) {
+          keys[j].classList.remove('fade')
         }
       }
-      createElement('button', classList, keyboard[i][j], keyboardRow)
     }
   }
 }

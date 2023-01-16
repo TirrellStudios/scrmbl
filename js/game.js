@@ -36,6 +36,7 @@ function addLetter(letter) {
   if (answer.length >= dailyWord.length) return
   answer += letter.toUpperCase()
   renderInputTiles()
+  unfadeKeys()
 }
 
 function removeLetter() {
@@ -43,6 +44,7 @@ function removeLetter() {
   if (answer.length === 0) return
   answer = answer.slice(0, -1)
   renderInputTiles()
+  unfadeKeys()
 }
 
 function submitAnswer() {

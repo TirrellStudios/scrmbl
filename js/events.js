@@ -1,10 +1,21 @@
 function listen() {
   const handleKeyPress = (e) => {
     const key = e.key.toLowerCase()
-    if (key === 'enter') submitAnswer()
-    else if (key === 'backspace' || key === 'delete') removeLetter()
-    else if (key.match(/^[a-z]$/)) {
-      if (dailyWord.indexOf(key.toUpperCase()) !== -1) addLetter(key)
+    if (key === 'enter') {
+      submitAnswer()
+      return
+    }
+    else if (key === 'backspace' || key === 'delete') {
+      removeLetter()
+      return
+    }
+    const keyboardKeys = document.getElementsByClassName('key')
+    for (let i = 0; i < keyboardKeys.length; i++) {
+      if (keyboardKeys[i].innerText === key.toUpperCase()) {
+        if (!keyboardKeys[i].classList.contains('fade')) {
+          if (key.match(/^[a-z]$/)) addLetter(key)
+        }
+      }
     }
   }
   document.onkeydown = (e) => handleKeyPress(e)
