@@ -26,6 +26,7 @@ function scrmblWord() {
 }
 
 function scrmbl() {
+  if (gameover) return
   renderScrmblTiles()
   scrmblCount++
   renderScores()

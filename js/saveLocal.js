@@ -12,7 +12,11 @@ function checkForSave() {
   scrmblCount = game.scrmbls
   timer = game.time
   gameover = true
-  renderGameOver()
+  answer = dailyWord
+  renderScores()
+  renderInputTiles()
+  renderKeyboard()
+  activateStatsButton()
   listen()
   return true
 }

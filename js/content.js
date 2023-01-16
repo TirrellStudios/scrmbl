@@ -11,6 +11,8 @@ const startButton = document.getElementById('start-button')
 const gameoverView = document.getElementById('gameover-view')
 const shareButton = document.getElementById('share-button')
 const finalResultsDisplay = document.getElementById('final-results-display')
+const statsButton = document.getElementById('stats-button')
+const statsIcon = statsButton.getElementsByTagName('i')[0]
 
 function createElement(type, classNames, text, parent) {
   const element = document.createElement(type)
@@ -36,7 +38,7 @@ function renderScores() {
 function renderScrmblTiles() {
   clearContainer(wordContainer)
   let scrmbledWord = scrmblWord()
-  while (scrmbledWord[0] === dailyWord[0] && scrmbledWord[-1] === dailyWord[-1]) scrmbldWord = scrmbledWord()
+  while (scrmbledWord[0] === dailyWord[0] && scrmbledWord[-1] === dailyWord[-1]) scrmbledWord = scrmblWord()
   for (let i = 0; i < dailyWord.length; i++) {
     createElement('div', ['word-tile'], scrmbledWord[i], wordContainer)
   }
@@ -133,15 +135,29 @@ function showGameoverView() {
   showInfoContainer()
 }
 
+function fillWithAnswer() {
+  let tiles = document.getElementsByClassName('input-tile')
+  for (let i = 0; i < tiles.length; i++) {
+    tiles[i].innerText = dailyWord[i]
+  }
+  answer = dailyWord
+}
+
 function renderGameOver() {
   let message = `It took you ${Math.floor(timer)} seconds to guess the word,\n`
   message += `And you used the Scrmbl button ${scrmblCount} times.\n\n`
   message += `Can your friends do better?`
   finalResultsDisplay.innerText = message
   showGameoverView()
+  activateStatsButton()
 }
 
 function renderGame() {
   renderScrmblTiles()
   renderInputTiles()
+}
+
+function activateStatsButton() {
+  statsButton.classList.add('active')
+  statsIcon.classList.add('active')
 }
