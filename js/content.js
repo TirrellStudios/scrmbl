@@ -36,7 +36,7 @@ function renderScores() {
 function renderScrmblTiles() {
   clearContainer(wordContainer)
   let scrmbledWord = scrmblWord()
-  while (scrmbledWord[0] !== dailyWord[0] && scrmbledWord[-1] !== dailyWord[-1]) scrmbldWord = scrmbledWord()
+  while (scrmbledWord[0] === dailyWord[0] && scrmbledWord[-1] === dailyWord[-1]) scrmbldWord = scrmbledWord()
   for (let i = 0; i < dailyWord.length; i++) {
     createElement('div', ['word-tile'], scrmbledWord[i], wordContainer)
   }
