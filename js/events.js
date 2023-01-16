@@ -49,16 +49,21 @@ function listen() {
       text: message
     })
   }
+  statsButton.onclick = () => {
+    if (!gameover) return
+    if (infoContainer.classList.contains('active')) hideInfoContainer()
+    else renderGameOver()
+  }
 }
 
 window.onload = () => {
   getDailyScrmbl(() => {
-    if (checkForSave()) return
-    showStartView()
     renderScores()
     renderScrmblTiles()
     renderInputTiles()
     renderKeyboard()
     listen()
+    if (checkForSave()) return
+    showStartView()
   })
 }

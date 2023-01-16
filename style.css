@@ -48,6 +48,9 @@ body {
 header {
   background: #171816;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo-container {
@@ -68,6 +71,36 @@ img {
 
 h1 {
   padding: .5rem;
+}
+
+#stats-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .5rem;
+  padding: .5rem;
+  width: 2rem;
+  height: 2rem;
+  background: #171816;
+  border-radius: 50px;
+  border: 1px solid #333333;
+  cursor: pointer;
+}
+
+#stats-button.active {
+  border: 1px solid #FFFFFF;
+}
+
+#stats-button.active:hover {
+  border: 1px solid #CCCCCC;
+}
+
+#stats-button i {
+  color: #333333;
+}
+
+#stats-button i.active {
+  color: #FFFFFF;
 }
 
 /* ---- DISPLAY ---- */
@@ -314,6 +347,19 @@ button {
   width: 50%;
   margin: auto;
   margin-top: 2rem;
+}
+
+#footer {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+}
+
+#footer p {
+  font-weight: 500;
 }
 
 @keyframes shake {
