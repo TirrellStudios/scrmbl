@@ -1,14 +1,15 @@
 function saveLocal() {
   let data = {
+    word: dailyWord,
     scrmbls: scrmblCount,
     time: timer
   }
-  localStorage.setItem(date, JSON.stringify(data))
+  localStorage.setItem('score', JSON.stringify(data))
 }
 
 function checkForSave() {
-  if (!localStorage.getItem(date)) return
-  let game = JSON.parse(localStorage.getItem(date))
+  let game = JSON.parse(localStorage.getItem('score'))
+  if (!game || game.word !== dailyWord) return false
   scrmblCount = game.scrmbls
   timer = game.time
   gameover = true
