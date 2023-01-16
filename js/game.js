@@ -59,6 +59,7 @@ function submitAnswer() {
     renderInputTiles()
     shakeInputTiles()
     renderScores()
+    renderKeyboard()
   }
   else {
     gameover = true
