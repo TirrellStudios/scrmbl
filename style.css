@@ -341,12 +341,16 @@ button {
   text-decoration: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   border: 1px solid #FFFFFF;
   border-radius: .5rem;
-  width: 50%;
+  width: 15rem;
   margin: auto;
   margin-top: 2rem;
+}
+
+#coffee i {
+  margin-left: 1rem;
 }
 
 #footer {
