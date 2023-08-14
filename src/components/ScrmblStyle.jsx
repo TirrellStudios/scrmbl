@@ -8,31 +8,36 @@ const ScrmblStyleContainer = styled.div`
   color: #ffffff;
   font-size: 18px;
   font-weight: 700;
-  margin: 2px;
-  border: 1px solid #ffffff;
+  margin-top: ${props => props.marginTop ? props.marginTop : '0'};
+  background: #333;
+  border-radius: 5px;
+  padding: 8px;
 `;
 
 const StyledLetter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
-  background: ${props => props.correct ? '#dfba3c' : '#000000'};
+  background: ${props => props.correct ? '#dfba3c' : null};
   color: ${props => props.correct ? '#000000' : '#ffffff'};
   margin: 2px;
+  font-size: ${props => props.size ? props.size : '18px'};
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 5px;
 `;
 
-const ScrmblStyleLetter = ({ correct, children }) => <StyledLetter correct={correct}>{children}</StyledLetter>;
+const ScrmblStyleLetter = ({ correct, children, size }) => <StyledLetter size={size} correct={correct}>{children}</StyledLetter>;
 
-const ScrmblStyledWord = ({ text, correct }) => {
+const ScrmblStyledWord = ({ text, correct, size, marginTop }) => {
   return (
-    <ScrmblStyleContainer>
+    <ScrmblStyleContainer marginTop={marginTop}>
       {text.split('').map((char, index) => {
         if (correct && correct.includes(index)) {
-          return <ScrmblStyleLetter key={index} correct>{char}</ScrmblStyleLetter>
+          return <ScrmblStyleLetter size={size} key={index} correct>{char}</ScrmblStyleLetter>
         }
-        return <ScrmblStyleLetter key={index}>{char}</ScrmblStyleLetter>
+        return <ScrmblStyleLetter size={size} key={index}>{char}</ScrmblStyleLetter>
       })}
     </ScrmblStyleContainer>
   );
