@@ -120,9 +120,9 @@ const GameOver = ({ active, word, scrmblsLeft, elapsedSeconds }) => {
     const shareString = generateShareString();
     if (navigator.share) {
       navigator.share({
-        title: 'My game stats',
+        title: 'My Scrmbl Stats',
         text: shareString,
-        url: 'http://yourgameurl.com',
+        url: 'https://scrmbl.net',
       }).catch(console.error);
     } else {
       navigator.clipboard.writeText(shareString).then(() => {
