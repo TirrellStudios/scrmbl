@@ -2,8 +2,6 @@ import React, { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Welcome from './components/Welcome';
 import scrmbl from './img/scrmbl.svg'
-import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Keyboard from './components/Keyboard';
 import ScrmblStyledWord from './components/ScrmblStyle';
 import ScrmblButton from './components/ScrmblButton';
@@ -63,12 +61,6 @@ const Logo = styled.img`
 const Title = styled.h1`
   font-size: 32px;
   font-weight: bold;
-`;
-
-const HelpIcon = styled(FontAwesomeIcon)`
-  font-size: 32px;
-  margin-right: 8px;
-  cursor: pointer;
 `;
 
 const ScrmblContainer = styled.div`
@@ -223,10 +215,6 @@ function App() {
           <Logo src={scrmbl} alt="scrmbl" />
           <Title>Scrmbl</Title>
         </Branding>
-        <HelpIcon
-          icon={faCircleQuestion}
-          onClick={() => setHelpActive(true)}
-        />
       </Header>
       <ScrmblStyledWord text={scrmbled} size='40px' marginTop='auto' correct={correctIndexes}/>
       <ScrmblStyledWord text={guess} size='40px' marginTop='auto'/>
@@ -234,6 +222,7 @@ function App() {
         <h1>{scrmblsLeft}</h1>
         <ScrmblButton
           onClick={unscrambleLetter}
+          scrmblsLeft={scrmblsLeft}
         />
       </ScrmblContainer>
       <Keyboard

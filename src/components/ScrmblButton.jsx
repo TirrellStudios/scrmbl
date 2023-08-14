@@ -19,6 +19,8 @@ const ScrmblButtonContainer = styled.div`
   transform: ${props => props.pressed ? "translateY(5px)" : "none"};
   width: 75px;
   height: 75px;
+  opacity: ${props => props.disabled ? "0.5" : "1"};
+  pointer-events: ${props => props.disabled ? "none" : "auto"};
 `;
 
 const ButtonText = styled.div`
@@ -32,8 +34,9 @@ const ScrmblImg = styled.img`
   height: 100%;
 `;
 
-const ScrmblButton = ({ onClick }) => {
+const ScrmblButton = ({ onClick, scrmblsLeft }) => {
   const [cooldown, setCooldown] = useState(0);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (cooldown > 0) {
@@ -51,8 +54,16 @@ const ScrmblButton = ({ onClick }) => {
     }
   }
 
+  useEffect(() => {
+    if (scrmblsLeft <= 0 || cooldown > 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [scrmblsLeft, cooldown]);
+
   return (
-    <ScrmblButtonContainer onClick={handleClick} pressed={cooldown > 0}>
+    <ScrmblButtonContainer onClick={handleClick} pressed={cooldown > 0} disabled={disabled}>
       {cooldown > 0 ? <ButtonText>{cooldown}</ButtonText> : <ScrmblImg src={scrmbl} alt="scrmbl" />}
     </ScrmblButtonContainer>
   );
