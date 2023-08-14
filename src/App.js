@@ -185,26 +185,33 @@ function App() {
     return [...string].filter(l => l === letter).length;
   };
 
-  const unscrambleLetter = () => {
-    if (scrmblsLeft === 0) return;
+  const unscrambleLetter = useCallback(() => {
+    if (scrmblsLeft <= 0) return;
+
     let unscrambledIndexes = [...correctIndexes];
     let availableIndexes = [...Array(word.length).keys()].filter(i => !unscrambledIndexes.includes(i));
+
     if (availableIndexes.length === 0) return;
+
     let randomScrambledIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
     let letterAtScrambledIndex = scrmbled[randomScrambledIndex];
     let correctIndexForThisLetter = word.indexOf(letterAtScrambledIndex);
+
     unscrambledIndexes.push(correctIndexForThisLetter);
     setCorrectIndexes(unscrambledIndexes);
+
     let updatedScrambled = [...scrmbled];
     [updatedScrambled[randomScrambledIndex], updatedScrambled[correctIndexForThisLetter]] = [updatedScrambled[correctIndexForThisLetter], updatedScrambled[randomScrambledIndex]];
+
     let remainingIndexes = [...Array(word.length).keys()].filter(i => !unscrambledIndexes.includes(i));
     for (let i = remainingIndexes.length - 1; i > 0; i--) {
-        const randomIndex = Math.floor(Math.random() * (i + 1));
-        [updatedScrambled[remainingIndexes[i]], updatedScrambled[remainingIndexes[randomIndex]]] = [updatedScrambled[remainingIndexes[randomIndex]], updatedScrambled[remainingIndexes[i]]];
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+      [updatedScrambled[remainingIndexes[i]], updatedScrambled[remainingIndexes[randomIndex]]] = [updatedScrambled[remainingIndexes[randomIndex]], updatedScrambled[remainingIndexes[i]]];
     }
+
     setScrmbled(updatedScrambled.join(''));
-    setScrmblsLeft(scrmblsLeft - 1);
-};
+    setScrmblsLeft(prevScrmbls => prevScrmbls - 1); // Using function form to ensure correctness
+  }, [word, scrmbled, scrmblsLeft, correctIndexes]);
 
 
   return (
