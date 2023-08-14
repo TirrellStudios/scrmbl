@@ -93,41 +93,30 @@ function App() {
   const [elapsedSeconds, setElapsedSeconds] = React.useState(0);
   const [gameOver, setGameOver] = React.useState(false);
 
-  useEffect(() => {
-    const storedGameOver = localStorage.getItem('gameOver');
-    const storedElapsedSeconds = localStorage.getItem('elapsedSeconds');
-    const storedWord = localStorage.getItem('word');
-    const storedScrmblsLeft = localStorage.getItem('scrmblsLeft');
-    if (storedGameOver) {
-      setGameOver(JSON.parse(storedGameOver));
-    }
-    if (storedElapsedSeconds) {
-      setElapsedSeconds(Number(storedElapsedSeconds));
-    }
-    if (storedScrmblsLeft) {
-      setScrmblsLeft(Number(storedScrmblsLeft));
-    }
+  const fetchAndInitialize = () => {
     getDailyScrmbl((fetchedWord) => {
-      if (!storedWord || fetchedWord !== storedWord) {
-        localStorage.clear();
-        setWord(fetchedWord);
-        setGuess('_'.repeat(fetchedWord.length));
-      }
-      else {
-        setWord(storedWord);
-        if (!guess || guess.length !== storedWord.length) {
-          setGuess('_'.repeat(storedWord.length));
+        const storedWord = localStorage.getItem('word');
+        if (!storedWord || fetchedWord !== storedWord) {
+            localStorage.clear();
+            setWord(fetchedWord);
+            setGuess('_'.repeat(fetchedWord.length));
+        } else {
+            setWord(storedWord);
+            setGuess('_'.repeat(storedWord.length));
         }
-      }
     });
-  }, [guess]);
-  
+  };
+
+  useEffect(fetchAndInitialize, []);
+
   useEffect(() => {
-    if (gameOver) localStorage.setItem('gameOver', gameOver);
-    if (elapsedSeconds) localStorage.setItem('elapsedSeconds', elapsedSeconds.toString());
-    if (word) localStorage.setItem('word', word);
-    if (scrmblsLeft) localStorage.setItem('scrmblsLeft', scrmblsLeft.toString());
-  }, [gameOver, elapsedSeconds, word, scrmblsLeft]);  
+    if (gameOver && guess === word) {
+        localStorage.setItem('gameOver', gameOver);
+        localStorage.setItem('elapsedSeconds', elapsedSeconds.toString());
+        localStorage.setItem('word', word);
+        localStorage.setItem('guess', guess);
+    }
+  }, [gameOver, elapsedSeconds, word, guess]);
 
   const startClock = () => {
     setStartTime(new Date());
@@ -186,7 +175,7 @@ function App() {
   };
 
   const unscrambleLetter = useCallback(() => {
-    if (scrmblsLeft <= 0) return;
+    if (scrmblsLeft === 0) return;
 
     let unscrambledIndexes = [...correctIndexes];
     let availableIndexes = [...Array(word.length).keys()].filter(i => !unscrambledIndexes.includes(i));

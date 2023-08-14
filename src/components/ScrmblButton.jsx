@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import scrmbl from '../img/scrmbl.svg'
 
@@ -14,37 +14,46 @@ const ScrmblButtonContainer = styled.div`
   padding: 16px;
   border: 1px solid #ffffff;
   cursor: pointer;
-  box-shadow: 0 5px #ffffff;
+  box-shadow: ${props => props.pressed ? "0 0 #ffffff" : "0 5px #ffffff"};
   transition: all 0.1s ease-in-out;
-  &:active {
-    transform: translateY(5px);
-    box-shadow: 0 0 #ffffff;
-  }
+  transform: ${props => props.pressed ? "translateY(5px)" : "none"};
+  width: 75px;
+  height: 75px;
 `;
 
-const ButtonOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+const ButtonText = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff55
+`;
+
+const ScrmblImg = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  transition: all 0.1s ease-in-out;
-  pointer-events: none;
-`;
-
-const Logo = styled.img`
-  width: 70px;
-  height: 70px;
 `;
 
 const ScrmblButton = ({ onClick }) => {
-  const [pressed] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+
+  useEffect(() => {
+    if (cooldown > 0) {
+      const timerId = setTimeout(() => {
+        setCooldown(prevCooldown => prevCooldown - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    }
+  }, [cooldown]);
+
+  const handleClick = () => {
+    if (cooldown === 0) {
+      onClick();
+      setCooldown(10);
+    }
+  }
 
   return (
-    <ScrmblButtonContainer onClick={onClick}>
-      <ButtonOverlay pressed={pressed} />
-      <Logo src={scrmbl} alt="scrmbl" />
+    <ScrmblButtonContainer onClick={handleClick} pressed={cooldown > 0}>
+      {cooldown > 0 ? <ButtonText>{cooldown}</ButtonText> : <ScrmblImg src={scrmbl} alt="scrmbl" />}
     </ScrmblButtonContainer>
   );
 }
