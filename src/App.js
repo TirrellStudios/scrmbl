@@ -15,9 +15,27 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 512px;
+  width: 100%;
   height: 100vh;
   background: #000;
+
+  @media only screen and (max-width: 768px) {
+    transform: scale(0.9);
+  }
+
+  @media only screen 
+    and (min-device-width: 768px) 
+    and (max-device-width: 1024px) 
+    and (orientation: portrait) {
+      height: calc(100vh - 60px);
+  }
+
+  @media only screen 
+    and (min-device-width: 768px) 
+    and (max-device-width: 1024px) 
+    and (orientation: landscape) {
+      height: calc(100vh - 50px);
+  }
 `;
 
 const Header = styled.div`
@@ -86,20 +104,23 @@ function App() {
     if (storedElapsedSeconds) {
       setElapsedSeconds(Number(storedElapsedSeconds));
     }
-    if (storedWord) {
-      setWord(storedWord);
-    }
     if (storedScrmblsLeft) {
       setScrmblsLeft(Number(storedScrmblsLeft));
     }
     getDailyScrmbl((fetchedWord) => {
-      if (fetchedWord !== storedWord) {
+      if (!storedWord || fetchedWord !== storedWord) {
         localStorage.clear();
         setWord(fetchedWord);
         setGuess('_'.repeat(fetchedWord.length));
       }
+      else {
+        setWord(storedWord);
+        if (!guess || guess.length !== storedWord.length) {
+          setGuess('_'.repeat(storedWord.length));
+        }
+      }
     });
-  }, []);
+  }, [guess]);
   
   useEffect(() => {
     if (gameOver) localStorage.setItem('gameOver', gameOver);
