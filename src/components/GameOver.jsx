@@ -103,28 +103,33 @@ const GameOver = ({ active, word, scrmblsLeft, elapsedSeconds }) => {
   const [correctArray, setCorrectArray] = useState([]);
   const [buttonText, setButtonText] = useState("Share");
 
-  const generateShareString = () => {
+  const generateShareString = (isNavigator) => {
     let emojiForScrmbls;
-    if (scrmblsUsed === 0) emojiForScrmbls = "🌟";
-    else if (scrmblsUsed <= 2) emojiForScrmbls = "😊";
-    else emojiForScrmbls = "😓";
+    if (scrmblsUsed === 0) emojiForScrmbls = "🟩";
+    else if (scrmblsUsed <= 2) emojiForScrmbls = "🟨";
+    else emojiForScrmbls = "🟥";
   
     let emojiForTime;
-    if (elapsedSeconds <= 30) emojiForTime = "🚀";
-    else if (elapsedSeconds <= 60) emojiForTime = "🏃";
-    else emojiForTime = "🐢";
-    return `I guessed today's Scrmbl in ${elapsedSeconds}s ${emojiForTime} and used the Scrmbl button ${scrmblsUsed} times ${emojiForScrmbls}! Can you beat me? https://scrmbl.net`;
+    if (elapsedSeconds <= 30) emojiForTime = "🟩";
+    else if (elapsedSeconds <= 60) emojiForTime = "🟨";
+    else emojiForTime = "🟥";
+    if (isNavigator) {
+      return `I guessed today's Scrmbl!\nIt took me ${elapsedSeconds}s ${emojiForTime}\nI used the Scrmbl button ${scrmblsUsed} times ${emojiForScrmbls}\nCan you beat me?`;
+    } else {
+      return `I guessed today's Scrmbl!\nIt took me ${elapsedSeconds}s ${emojiForTime}\nI used the Scrmbl button ${scrmblsUsed} times ${emojiForScrmbls}\nCan you beat me? https://scrmbl.net`;
+    }
   };
 
   const handleShareClick = () => {
-    const shareString = generateShareString();
     if (navigator.share) {
+      const shareString = generateShareString(true);
       navigator.share({
         title: 'My Scrmbl Stats',
         text: shareString,
         url: 'https://scrmbl.net',
       }).catch(console.error);
     } else {
+      const shareString = generateShareString(false);
       navigator.clipboard.writeText(shareString).then(() => {
         setButtonText("Copied!");
         setTimeout(() => setButtonText("Share"), 3000);
