@@ -128,6 +128,7 @@ function App() {
   }, [word, scrmblWord]);
 
   const addLetter = (letter) => {
+    if (gameOver) return;
     const updatedGuess = guess.split('');
     const indexToReplace = updatedGuess.indexOf('_');
     if (indexToReplace === -1) return;
@@ -136,6 +137,7 @@ function App() {
   }
 
   const removeLetter = () => {
+    if (gameOver) return;
     const updatedGuess = guess.split('');
     for (let i = updatedGuess.length - 1; i >= 0; i--) {
         if (updatedGuess[i] !== '_') {
@@ -147,6 +149,7 @@ function App() {
   }
 
   const submitGuess = () => {
+    if (gameOver) return;
     if (guess === word) {
       const endTime = new Date();
       const timeDiff = endTime - startTime;
