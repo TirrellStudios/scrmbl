@@ -88,7 +88,16 @@ function App() {
   const fetchAndInitialize = () => {
     getDailyScrmbl((fetchedWord) => {
         const storedWord = localStorage.getItem('word');
-        if (!storedWord || fetchedWord !== storedWord) {
+        const storedGameOver = localStorage.getItem('gameOver');
+        const storedElapsedSeconds = localStorage.getItem('elapsedSeconds');
+        const storedGuess = localStorage.getItem('guess');
+
+        if (storedGameOver === "true") {
+            setGameOver(true);
+            setElapsedSeconds(Number(storedElapsedSeconds));
+            setWord(storedWord);
+            setGuess(storedGuess);
+        } else if (!storedWord || fetchedWord !== storedWord) {
             localStorage.clear();
             setWord(fetchedWord);
             setGuess('_'.repeat(fetchedWord.length));
