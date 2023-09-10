@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 function KeyboardListener({ addLetter, removeLetter, submitGuess, word, countLetter, letterCountInGuess }) {
   useEffect(() => {
     const handleKeyPress = (event) => {
-      const ignoredKeys = ['Shift', 'Meta', 'Alt', 'Control', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+      const ignoredKeys = ['Shift', 'Meta', 'Alt', 'Control', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'];
       if (ignoredKeys.includes(event.key)) {
         return;
       }
       if (event.key === 'Backspace' || event.key === 'Delete') {
         removeLetter();
-      } else if (event.key === 'Enter') {
-        submitGuess();
       } else if (
         word.includes(event.key.toUpperCase()) && 
         letterCountInGuess(event.key.toUpperCase()) < countLetter(event.key.toUpperCase(), word) &&
@@ -25,7 +23,7 @@ function KeyboardListener({ addLetter, removeLetter, submitGuess, word, countLet
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [addLetter, removeLetter, submitGuess, word]);
+  }, [addLetter, removeLetter, submitGuess, word, countLetter, letterCountInGuess]);
 
   return null;
 }

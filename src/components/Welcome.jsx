@@ -21,30 +21,32 @@ const RulesContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background: #000000;
   border-radius: 25px;
   margin: auto;
-  width: 500px;
   box-shadow: 0 0 10px #00000022;
   border: 2px solid #ffffff;
+  height: 100%;
+  max-height:750px;
+  width: 100%;
+  max-width: 550px;
+  overflow: hidden;
 `;
 
 const Heading = styled.h1`
   color: #ffffff;
   font-size: 24px;
   font-weight: 700;
-  margin: 16px;
   border-bottom: 2px solid #ffffff;
 `;
 
 const List = styled.ul`
   display: flex;
-  justify-content: center;
+  height: 100%;
+  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
-  margin: 16px;
-  width: 80%;
   color: #ffffff;
   font-size: 18px;
   font-weight: 500;
@@ -54,7 +56,6 @@ const ListItem = styled.li`
   text-align: center;
   list-style: none;
   font-weight: 400;
-  margin: 8px 0;
 `;
 
 const LetsPlayButton = styled.button`
@@ -68,7 +69,6 @@ const LetsPlayButton = styled.button`
   border: none;
   border-radius: 25px;
   padding: 8px 16px;
-  margin: 16px;
   cursor: pointer;
   box-shadow: 0 0 10px #00000022;
   transition: all 0.2s ease-in-out;

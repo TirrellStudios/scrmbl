@@ -21,13 +21,17 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background: #000000;
   border-radius: 25px;
   margin: auto;
-  width: 500px;
   box-shadow: 0 0 10px #00000022;
   border: 2px solid #ffffff;
+  height: 100%;
+  max-height:750px;
+  width: 100%;
+  max-width: 550px;
+  overflow: hidden;
 `;
 
 const Heading = styled.h1`
@@ -54,8 +58,8 @@ const ListItem = styled.li`
   text-align: center;
   list-style: none;
   font-weight: 400;
-  margin: 8px 0;
-  width: 200px;
+  margin: 16px;
+  width: 30%;
 `;
 
 const ShareButton = styled.button`
@@ -97,6 +101,8 @@ const Stat = styled.span`
   border-radius: 10px;
   color: #000000;
   margin: 8px;
+  width: 75%;
+  text-align: center;
 `;
 
 const GameOver = ({ active, word, scrmblsLeft, elapsedSeconds }) => {

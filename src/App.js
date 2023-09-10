@@ -14,26 +14,9 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  max-width: 600px;
+  height: 100%;
   background: #000;
-
-  @media only screen and (max-width: 768px) {
-    transform: scale(0.9);
-  }
-
-  @media only screen 
-    and (min-device-width: 768px) 
-    and (max-device-width: 1024px) 
-    and (orientation: portrait) {
-      height: calc(100vh - 60px);
-  }
-
-  @media only screen 
-    and (min-device-width: 768px) 
-    and (max-device-width: 1024px) 
-    and (orientation: landscape) {
-      height: calc(100vh - 50px);
-  }
 `;
 
 const Header = styled.div`
@@ -42,7 +25,6 @@ const Header = styled.div`
   justify-content: space-between;
   font-size: 16px;
   font-weight: bold;
-  padding: 16px;
   background: #333;
   width: 100%;
 `;
@@ -70,7 +52,6 @@ const ScrmblContainer = styled.div`
   justify-content: space-between;
   margin-top: auto;
   background: #333;
-  padding: 16px;
   border-radius: 100px;
 `;
 
@@ -84,6 +65,7 @@ function App() {
   const [startTime, setStartTime] = React.useState(null);
   const [elapsedSeconds, setElapsedSeconds] = React.useState(0);
   const [gameOver, setGameOver] = React.useState(false);
+  const [wordShake, setWordShake] = React.useState(false);
 
   const fetchAndInitialize = () => {
     getDailyScrmbl((fetchedWord) => {
@@ -138,14 +120,18 @@ function App() {
 
   const addLetter = (letter) => {
     if (gameOver) return;
+
     const updatedGuess = guess.split('');
     const indexToReplace = updatedGuess.indexOf('_');
     if (indexToReplace === -1) return;
+
     updatedGuess[indexToReplace] = letter;
-    setGuess(updatedGuess.join(''));
+    const newGuess = updatedGuess.join('');
+    setGuess(newGuess);
   }
 
   const removeLetter = () => {
+    console.log('Removing letter')
     if (gameOver) return;
     const updatedGuess = guess.split('');
     for (let i = updatedGuess.length - 1; i >= 0; i--) {
@@ -157,7 +143,10 @@ function App() {
     setGuess(updatedGuess.join(''));
   }
 
-  const submitGuess = () => {
+  const submitGuess = useCallback(() => {
+    console.log('Submitting guess')
+    console.log(word);
+    console.log(guess);
     if (gameOver) return;
     if (guess === word) {
       const endTime = new Date();
@@ -166,9 +155,17 @@ function App() {
       setElapsedSeconds(roundedSeconds);
       setGameOver(true);
     } else {
+      setWordShake(true);
       setGuess('_'.repeat(word.length));
+      setTimeout(() => setWordShake(false), 500);
     }
-  };  
+  }, [gameOver, word, guess, startTime]);
+
+  useEffect(() => {
+    if (guess && guess.indexOf('_') === -1) {
+      submitGuess();
+    }
+  }, [guess, submitGuess])
 
   const letterCountInGuess = (letter) => {
     return [...guess].filter(l => l === letter).length;
@@ -229,7 +226,7 @@ function App() {
         </Branding>
       </Header>
       <ScrmblStyledWord text={scrmbled} size='40px' marginTop='auto' correct={correctIndexes}/>
-      <ScrmblStyledWord text={guess} size='40px' marginTop='auto'/>
+      <ScrmblStyledWord text={guess} size='40px' marginTop='auto' shake={wordShake}/>
       <ScrmblContainer>
         <h1>{scrmblsLeft}</h1>
         <ScrmblButton

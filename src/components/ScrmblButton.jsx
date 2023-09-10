@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import scrmbl from '../img/scrmbl.svg'
 
-const ScrmblButtonContainer = styled.div`
+const ScrmblButtonContainer = styled(({ pressed, ...rest }) => <div {...rest} />)`
   position: relative;
   display: flex;
   align-items: center;
