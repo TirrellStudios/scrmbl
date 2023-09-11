@@ -74,15 +74,15 @@ function App() {
         const storedElapsedSeconds = localStorage.getItem('elapsedSeconds');
         const storedGuess = localStorage.getItem('guess');
 
-        if (storedGameOver === "true") {
+        if (!storedWord || fetchedWord !== storedWord) {
+            localStorage.clear();
+            setWord(fetchedWord);
+            setGuess('_'.repeat(fetchedWord.length));
+        } else if (storedGameOver === "true") {
             setGameOver(true);
             setElapsedSeconds(Number(storedElapsedSeconds));
             setWord(storedWord);
             setGuess(storedGuess);
-        } else if (!storedWord || fetchedWord !== storedWord) {
-            localStorage.clear();
-            setWord(fetchedWord);
-            setGuess('_'.repeat(fetchedWord.length));
         } else {
             setWord(storedWord);
             setGuess('_'.repeat(storedWord.length));

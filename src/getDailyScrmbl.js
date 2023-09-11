@@ -4,7 +4,7 @@ function getDailyScrmbl(callback) {
       return response.json()
     })
     .then(data => {
-      callback(data.message.word.toUpperCase())
+      callback(data.message.word.toUpperCase());
     })
 }
 
