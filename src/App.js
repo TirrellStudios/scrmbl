@@ -73,6 +73,7 @@ function App() {
         const storedGameOver = localStorage.getItem('gameOver');
         const storedElapsedSeconds = localStorage.getItem('elapsedSeconds');
         const storedGuess = localStorage.getItem('guess');
+        const storedScrmblsLeft = localStorage.getItem('scrmblsLeft')
 
         if (!storedWord || fetchedWord !== storedWord) {
             localStorage.clear();
@@ -83,6 +84,7 @@ function App() {
             setElapsedSeconds(Number(storedElapsedSeconds));
             setWord(storedWord);
             setGuess(storedGuess);
+            setScrmblsLeft(storedScrmblsLeft)
         } else {
             setWord(storedWord);
             setGuess('_'.repeat(storedWord.length));
@@ -98,6 +100,7 @@ function App() {
         localStorage.setItem('elapsedSeconds', elapsedSeconds.toString());
         localStorage.setItem('word', word);
         localStorage.setItem('guess', guess);
+        localStorage.setItem('scrmblsLeft', scrmblsLeft)
     }
   }, [gameOver, elapsedSeconds, word, guess]);
 
@@ -131,7 +134,6 @@ function App() {
   }
 
   const removeLetter = () => {
-    console.log('Removing letter')
     if (gameOver) return;
     const updatedGuess = guess.split('');
     for (let i = updatedGuess.length - 1; i >= 0; i--) {
@@ -144,9 +146,6 @@ function App() {
   }
 
   const submitGuess = useCallback(() => {
-    console.log('Submitting guess')
-    console.log(word);
-    console.log(guess);
     if (gameOver) return;
     if (guess === word) {
       const endTime = new Date();
