@@ -8,6 +8,7 @@ import ScrmblButton from './components/ScrmblButton';
 import KeyboardListener from './components/KeyboardListener';
 import getDailyScrmbl from './getDailyScrmbl';
 import GameOver from './components/GameOver';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Content = styled.div`
   display: flex;
@@ -53,6 +54,19 @@ const ScrmblContainer = styled.div`
   margin-top: auto;
   background: #333;
   border-radius: 100px;
+`;
+
+const DialogBlocker = styled(motion.div)`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000000dd;
+  z-index: 99;
 `;
 
 function App() {
@@ -205,19 +219,26 @@ function App() {
 
   return (
     <Content>
-      <Welcome
-        active={helpActive}
-        close={() => setHelpActive(false)}
-        startClock={startClock}
-        gameOver={gameOver}
-      />
-      <GameOver
-        active={gameOver}
-        scrmblsLeft={scrmblsLeft}
-        elapsedSeconds={elapsedSeconds}
-        word={word}
-      />
-
+      <AnimatePresence>
+       {(helpActive || gameOver) && <DialogBlocker
+          initial={{ opacity: 0}}
+          animate={{ opacity: 1}}
+          exit={{ opacity: 0}}
+        >
+          <Welcome
+            active={helpActive}
+            close={() => setHelpActive(false)}
+            startClock={startClock}
+            gameOver={gameOver}
+          />
+          <GameOver
+            active={gameOver}
+            scrmblsLeft={scrmblsLeft}
+            elapsedSeconds={elapsedSeconds}
+            word={word}
+          />
+        </DialogBlocker>}
+      </AnimatePresence>
       <Header>
         <Branding>
           <Logo src={scrmbl} alt="scrmbl" />
