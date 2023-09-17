@@ -3,20 +3,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrmblStyledWord from "./ScrmblStyle";
 
-const WelcomeContainer = styled(motion.div)`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #000000dd;
-  z-index: 100;
-`;
-
-const RulesContainer = styled.div`
+const RulesContainer = styled(motion.div)`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -32,6 +19,7 @@ const RulesContainer = styled.div`
   width: 100%;
   max-width: 550px;
   overflow: hidden;
+  z-index: 100;
 `;
 
 const Heading = styled.h1`
@@ -82,37 +70,34 @@ const Welcome = ({ active, close, startClock, gameOver }) => {
   if (gameOver) return;
   return (
     <AnimatePresence>
-      {active && 
-      <WelcomeContainer
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      >
-        <RulesContainer>
-          <Heading>How to play:</Heading>
-          <List>
-            <ScrmblStyledWord text='CMSBRL' size='32px' />
-            <ListItem>🎯 Challenge: Turn this jumbled mess into a real word!</ListItem>
-            
-            <ScrmblStyledWord text='LSRCMB' size='32px' correct={[2]} />
-            <ListItem>💡 Need a hint? Tap the Scrmbl button and watch a letter slide into its rightful place!</ListItem>
-            
-            <ScrmblStyledWord text='SLRMCB' size='32px' correct={[0, 2, 3]} />
-            <ListItem>🕹 Use the Scrmbl magic three times! But remember, each hint is less bragging rights.</ListItem>
-            
-            <ScrmblStyledWord text='SCRMBL' size='32px' correct={[0, 1, 2, 3, 4, 5]} />
-            <ListItem>🎉 Crack the word, be the Scrmbl champ, and dance your way to a perfect score!</ListItem>
-            
-            <LetsPlayButton onClick={() => {
-              close();
-              startClock();
-            }}>
-              🚀 Dive In & Play!
-            </LetsPlayButton>
-          </List>
-        </RulesContainer>
-      </WelcomeContainer>}
+      {active &&
+      <RulesContainer
+        initial={{scale: 0 }}
+        animate={{scale: 1 }}
+        exit={{scale: 0 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+        <Heading>How to play:</Heading>
+        <List>
+          <ScrmblStyledWord text='CMSBRL' size='32px' />
+          <ListItem>🎯 Challenge: Turn this jumbled mess into a real word!</ListItem>
+          
+          <ScrmblStyledWord text='LSRCMB' size='32px' correct={[2]} />
+          <ListItem>💡 Need a hint? Tap the Scrmbl button and watch a letter slide into its rightful place!</ListItem>
+          
+          <ScrmblStyledWord text='SLRMCB' size='32px' correct={[0, 2, 3]} />
+          <ListItem>🕹 Use the Scrmbl magic three times! But remember, each hint is less bragging rights.</ListItem>
+          
+          <ScrmblStyledWord text='SCRMBL' size='32px' correct={[0, 1, 2, 3, 4, 5]} />
+          <ListItem>🎉 Crack the word, be the Scrmbl champ, and dance your way to a perfect score!</ListItem>
+          
+          <LetsPlayButton onClick={() => {
+            close();
+            startClock();
+          }}>
+            🚀 Dive In & Play!
+          </LetsPlayButton>
+        </List>
+      </RulesContainer>}
     </AnimatePresence>
   );
 };

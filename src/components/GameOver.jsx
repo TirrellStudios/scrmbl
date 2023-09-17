@@ -3,20 +3,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrmblStyledWord from "./ScrmblStyle";
 
-const GameOverContainer = styled(motion.div)`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #000000dd;
-  z-index: 100;
-`;
-
-const InfoContainer = styled.div`
+const InfoContainer = styled(motion.div)`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -152,38 +139,35 @@ const GameOver = ({ active, word, scrmblsLeft, elapsedSeconds }) => {
 
   return (
     <AnimatePresence>
-      {active && 
-      <GameOverContainer
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      >
-        <InfoContainer>
-          <Heading>You guessed it!</Heading>
-          <List>
-            <ScrmblStyledWord text={word} size='32px' correct={correctArray} />
-            <Heading>Here's how you did:</Heading>
-            <StatContainer>
-              <ListItem>Times you used the Scrmbl button</ListItem>
-              <Stat background={
-                scrmblsUsed === 0 ? '#aaf683' :
-                scrmblsUsed <= 2 ? '#dfba3c' :
-                '#ee6055'
-              }>{scrmblsUsed}</Stat>
-            </StatContainer>
-            <StatContainer>
-              <ListItem>Seconds it took you to guess the word</ListItem>
-              <Stat background={
-                elapsedSeconds <= 30 ? '#aaf683' :
-                elapsedSeconds <= 60 ? '#dfba3c' :
-                '#ee6055'
-              }>{elapsedSeconds}</Stat>
-            </StatContainer>
-            <ShareButton onClick={handleShareClick}>{buttonText}</ShareButton>
-          </List>
-        </InfoContainer>
-      </GameOverContainer>}
+      {active &&
+      <InfoContainer
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+        <Heading>You guessed it!</Heading>
+        <List>
+          <ScrmblStyledWord text={word} size='32px' correct={correctArray} />
+          <Heading>Here's how you did:</Heading>
+          <StatContainer>
+            <ListItem>Times you used the Scrmbl button</ListItem>
+            <Stat background={
+              scrmblsUsed === 0 ? '#aaf683' :
+              scrmblsUsed <= 2 ? '#dfba3c' :
+              '#ee6055'
+            }>{scrmblsUsed}</Stat>
+          </StatContainer>
+          <StatContainer>
+            <ListItem>Seconds it took you to guess the word</ListItem>
+            <Stat background={
+              elapsedSeconds <= 30 ? '#aaf683' :
+              elapsedSeconds <= 60 ? '#dfba3c' :
+              '#ee6055'
+            }>{elapsedSeconds}</Stat>
+          </StatContainer>
+          <ShareButton onClick={handleShareClick}>{buttonText}</ShareButton>
+        </List>
+      </InfoContainer>}
     </AnimatePresence>
   );
 };
