@@ -225,18 +225,16 @@ function App() {
           animate={{ opacity: 1}}
           exit={{ opacity: 0}}
         >
-          <Welcome
-            active={helpActive}
+          {helpActive && <Welcome
             close={() => setHelpActive(false)}
             startClock={startClock}
             gameOver={gameOver}
-          />
-          <GameOver
-            active={gameOver}
+          />}
+          {gameOver && <GameOver
             scrmblsLeft={scrmblsLeft}
             elapsedSeconds={elapsedSeconds}
             word={word}
-          />
+          />}
         </DialogBlocker>}
       </AnimatePresence>
       <Header>

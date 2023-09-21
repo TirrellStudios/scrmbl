@@ -92,7 +92,7 @@ const Stat = styled.span`
   text-align: center;
 `;
 
-const GameOver = ({ active, word, scrmblsLeft, elapsedSeconds }) => {
+const GameOver = ({ word, scrmblsLeft, elapsedSeconds }) => {
   const [correctArray, setCorrectArray] = useState([]);
   const [buttonText, setButtonText] = useState("Share");
 
@@ -138,37 +138,34 @@ const GameOver = ({ active, word, scrmblsLeft, elapsedSeconds }) => {
   }, [word]);
 
   return (
-    <AnimatePresence>
-      {active &&
-      <InfoContainer
+    <InfoContainer
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
       transition={{ type: "spring", stiffness: 260, damping: 20 }}>
-        <Heading>You guessed it!</Heading>
-        <List>
-          <ScrmblStyledWord text={word} size='32px' correct={correctArray} />
-          <Heading>Here's how you did:</Heading>
-          <StatContainer>
-            <ListItem>Times you used the Scrmbl button</ListItem>
-            <Stat background={
-              scrmblsUsed === 0 ? '#aaf683' :
-              scrmblsUsed <= 2 ? '#dfba3c' :
-              '#ee6055'
-            }>{scrmblsUsed}</Stat>
-          </StatContainer>
-          <StatContainer>
-            <ListItem>Seconds it took you to guess the word</ListItem>
-            <Stat background={
-              elapsedSeconds <= 30 ? '#aaf683' :
-              elapsedSeconds <= 60 ? '#dfba3c' :
-              '#ee6055'
-            }>{elapsedSeconds}</Stat>
-          </StatContainer>
-          <ShareButton onClick={handleShareClick}>{buttonText}</ShareButton>
-        </List>
-      </InfoContainer>}
-    </AnimatePresence>
+      <Heading>You guessed it!</Heading>
+      <List>
+        <ScrmblStyledWord text={word} size='32px' correct={correctArray} />
+        <Heading>Here's how you did:</Heading>
+        <StatContainer>
+          <ListItem>Times you used the Scrmbl button</ListItem>
+          <Stat background={
+            scrmblsUsed === 0 ? '#aaf683' :
+            scrmblsUsed <= 2 ? '#dfba3c' :
+            '#ee6055'
+          }>{scrmblsUsed}</Stat>
+        </StatContainer>
+        <StatContainer>
+          <ListItem>Seconds it took you to guess the word</ListItem>
+          <Stat background={
+            elapsedSeconds <= 30 ? '#aaf683' :
+            elapsedSeconds <= 60 ? '#dfba3c' :
+            '#ee6055'
+          }>{elapsedSeconds}</Stat>
+        </StatContainer>
+        <ShareButton onClick={handleShareClick}>{buttonText}</ShareButton>
+      </List>
+    </InfoContainer>
   );
 };
 
