@@ -220,7 +220,7 @@ function App() {
   return (
     <Content>
       <AnimatePresence>
-       {(helpActive || gameOver) && <DialogBlocker
+        {(helpActive || gameOver) && <DialogBlocker
           initial={{ opacity: 0}}
           animate={{ opacity: 1}}
           exit={{ opacity: 0}}
