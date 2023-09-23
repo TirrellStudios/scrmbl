@@ -1,6 +1,19 @@
 import { motion } from 'framer-motion';
 import styled from "styled-components";
 
+const DialogBlocker = styled(motion.div)`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000000dd;
+  z-index: 99;
+`;
+
 const DialogBox = styled(motion.div)`
   position: relative;
   display: flex;
@@ -19,13 +32,18 @@ const DialogBox = styled(motion.div)`
   overflow: hidden;
 `;
 
-const Dialog = ({children}) =>
-  <DialogBox
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0 }}
-    transition={{ type: "spring", stiffness: 260, damping: 20 }}>
-    {children}
-  </DialogBox>
+export const Dialog = ({children}) =>
+  <DialogBlocker
+    initial={{ opacity: 0}}
+    animate={{ opacity: 1}}
+    exit={{ opacity: 0}}>
+    <DialogBox
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+      {children}
+    </DialogBox>
+  </DialogBlocker>
 
 export default Dialog;
