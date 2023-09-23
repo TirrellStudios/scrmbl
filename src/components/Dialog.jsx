@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from "styled-components";
 
-const DialogBlocker = styled(motion.div)`
+const InputBlocker = styled(motion.div)`
   position: absolute;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@ const DialogBox = styled(motion.div)`
 `;
 
 export const Dialog = ({children}) =>
-  <DialogBlocker
+  <InputBlocker
     initial={{ opacity: 0}}
     animate={{ opacity: 1}}
     exit={{ opacity: 0}}>
@@ -44,6 +44,6 @@ export const Dialog = ({children}) =>
       transition={{ type: "spring", stiffness: 260, damping: 20 }}>
       {children}
     </DialogBox>
-  </DialogBlocker>
+  </InputBlocker>
 
 export default Dialog;
