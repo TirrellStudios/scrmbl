@@ -1,25 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { motion, AnimatePresence } from 'framer-motion';
 import ScrmblStyledWord from "./ScrmblStyle";
-
-const InfoContainer = styled(motion.div)`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  background: #000000;
-  border-radius: 25px;
-  margin: auto;
-  box-shadow: 0 0 10px #00000022;
-  border: 2px solid #ffffff;
-  height: 100%;
-  max-height:750px;
-  width: 100%;
-  max-width: 550px;
-  overflow: hidden;
-`;
+import Dialog from "./Dialog";
 
 const Heading = styled.h1`
   color: #ffffff;
@@ -138,11 +120,7 @@ const GameOver = ({ word, scrmblsLeft, elapsedSeconds }) => {
   }, [word]);
 
   return (
-    <InfoContainer
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+    <Dialog>
       <Heading>You guessed it!</Heading>
       <List>
         <ScrmblStyledWord text={word} size='32px' correct={correctArray} />
@@ -165,7 +143,7 @@ const GameOver = ({ word, scrmblsLeft, elapsedSeconds }) => {
         </StatContainer>
         <ShareButton onClick={handleShareClick}>{buttonText}</ShareButton>
       </List>
-    </InfoContainer>
+    </Dialog>
   );
 };
 
