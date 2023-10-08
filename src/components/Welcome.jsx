@@ -47,8 +47,7 @@ const LetsPlayButton = styled.button`
   }
 `;
 
-const Welcome = ({ close, startClock, gameOver }) => {
-  if (gameOver) return;
+const Welcome = ({ close, startClock }) => {
   return (
     <Dialog>
       <Heading>How to play:</Heading>
@@ -66,6 +65,7 @@ const Welcome = ({ close, startClock, gameOver }) => {
         <ListItem>🎉 Crack the word, be the Scrmbl champ, and dance your way to a perfect score!</ListItem>
         
         <LetsPlayButton onClick={() => {
+          console.log("YOOOOO")
           close();
           startClock();
         }}>
