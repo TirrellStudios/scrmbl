@@ -72,7 +72,12 @@ function App() {
   const fetchAndInitialize = () => {
     getDailyScrmbl((fetchedWord) => {
         if (!word || fetchedWord !== word) {
+            // Reset to default values
             localStorage.clear();
+            setGameOver(false);
+            setHelpActive(true);
+            setElapsedSeconds(0);
+            setScrmblsLeft(3);
             setWord(fetchedWord);
             setGuess('_'.repeat(fetchedWord.length));
         } else if (!gameOver) {
