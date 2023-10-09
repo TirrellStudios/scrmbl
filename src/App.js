@@ -58,43 +58,35 @@ const ScrmblContainer = styled.div`
 `;
 
 function App() {
-  const [helpActive, setHelpActive] = React.useState(true);
-  const [word, setWord] = React.useState('');
+  const [word, setWord] = React.useState(localStorage.getItem('word') ?? '');
   const [scrmbled, setScrmbled] = React.useState('');
-  const [guess, setGuess] = React.useState('');
+  const [guess, setGuess] = React.useState(localStorage.getItem('guess') ?? '');
   const [correctIndexes, setCorrectIndexes] = React.useState([]);
-  const [scrmblsLeft, setScrmblsLeft] = React.useState(3);
+  const [scrmblsLeft, setScrmblsLeft] = React.useState(localStorage.getItem('scrmblsLeft') ?? 3);
   const [startTime, setStartTime] = React.useState(null);
-  const [elapsedSeconds, setElapsedSeconds] = React.useState(0);
-  const [gameOver, setGameOver] = React.useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = React.useState(localStorage.getItem('elapsedSeconds') ?? 0);
+  const [gameOver, setGameOver] = React.useState(localStorage.getItem('gameOver') ?? false);
   const [wordShake, setWordShake] = React.useState(false);
+  const [helpActive, setHelpActive] = React.useState(gameOver ? false : true);
 
   const fetchAndInitialize = () => {
     getDailyScrmbl((fetchedWord) => {
-        const storedWord = localStorage.getItem('word');
-        const storedGameOver = localStorage.getItem('gameOver');
-        const storedElapsedSeconds = localStorage.getItem('elapsedSeconds');
-        const storedGuess = localStorage.getItem('guess');
-        const storedScrmblsLeft = localStorage.getItem('scrmblsLeft')
-
-        if (!storedWord || fetchedWord !== storedWord) {
+        if (!word || fetchedWord !== word) {
+            // Reset to default values
             localStorage.clear();
+            setGameOver(false);
+            setHelpActive(true);
+            setElapsedSeconds(0);
+            setScrmblsLeft(3);
             setWord(fetchedWord);
             setGuess('_'.repeat(fetchedWord.length));
-        } else if (storedGameOver === "true") {
-            setGameOver(true);
-            setElapsedSeconds(Number(storedElapsedSeconds));
-            setWord(storedWord);
-            setGuess(storedGuess);
-            setScrmblsLeft(storedScrmblsLeft)
-        } else {
-            setWord(storedWord);
-            setGuess('_'.repeat(storedWord.length));
+        } else if (!gameOver) {
+            setGuess('_'.repeat(word.length));
         }
     });
   };
 
-  useEffect(fetchAndInitialize, []);
+  useEffect(fetchAndInitialize, [gameOver,word]);
 
   useEffect(() => {
     if (gameOver && guess === word) {
@@ -104,7 +96,7 @@ function App() {
         localStorage.setItem('guess', guess);
         localStorage.setItem('scrmblsLeft', scrmblsLeft)
     }
-  }, [gameOver, elapsedSeconds, word, guess]);
+  }, [gameOver, elapsedSeconds, word, guess, scrmblsLeft]);
 
   const startClock = () => {
     setStartTime(new Date());
@@ -204,7 +196,6 @@ function App() {
     setScrmblsLeft(prevScrmbls => prevScrmbls - 1); // Using function form to ensure correctness
   }, [word, scrmbled, scrmblsLeft, correctIndexes]);
 
-
   return (
     <Content>
       <AnimatePresence>
@@ -212,14 +203,13 @@ function App() {
           <Welcome
             close={() => setHelpActive(false)}
             startClock={startClock}
-            gameOver={gameOver}
           />
-        : gameOver &&
+        : gameOver ?
           <GameOver
             scrmblsLeft={scrmblsLeft}
             elapsedSeconds={elapsedSeconds}
             word={word}
-          />
+          /> : null
         }
       </AnimatePresence>
       <Header>
